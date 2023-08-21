@@ -267,6 +267,11 @@ def dnaSummary(dna_seq, seq_name = ''):
     summary += f'==== Sequence: {seq_name} ====\n'
     summary += f'Nucleotide Freq: {nucFrequencyDict(dna_seq)}\n'
     summary += f'GC Content: {percentGCtoString(dna_seq)}\n'
+    summary += f'Base Pairs: \n{printBasePairs(dna_seq)}\n'
+    summary += f'Reverse Compliment:\n'
+    summary += printSeq(reverseCompliment(dna_seq), 'f')
+    summary += f'\nTranscribed:\n{printSeq(transcribe(reverseCompliment(dna_seq)),"f")}'
+
 
     return summary
 
