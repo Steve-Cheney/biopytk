@@ -169,7 +169,7 @@ def printBasePairs(dna_seq):
     \n<- dna_seq: str
     \n-> str
     """
-    return printSeq(dna_seq,'f') + '\n   ' + '|'*len(dna_seq) + '\n' + printSeq(dnaCompliment(dna_seq),'r')
+    return printSeq(dna_seq,'f') + '\n   ' + '|'*len(dna_seq) + '\n' + printSeq(dnaComplimentcompli(dna_seq),'r')
 
 
 def hammingDist(seq1, seq2):

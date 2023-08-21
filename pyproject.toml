@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling", "collections", "random", "math"]
+requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
