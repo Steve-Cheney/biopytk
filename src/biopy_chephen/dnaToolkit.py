@@ -115,7 +115,7 @@ def transcribe(dna_seq):
     return output
 
 
-def matchDNA(dna_seq):
+def dnaCompliment(dna_seq):
     """
     Return the matched sequence of a given DNA sequence
     \n<- dna_seq: str
@@ -141,10 +141,10 @@ def reverseCompliment(dna_seq):
     \n<- dna_seq: str
     \n-> str
     """
-    return matchDNA(dna_seq)[::-1]
+    return dnaCompliment(dna_seq)[::-1]
 
 
-def matchRNA(rna_seq):
+def rnaCompliment(rna_seq):
     """
     Return the matched sequence of a given RNA sequence
     \n<- rna_seq: str
@@ -169,7 +169,7 @@ def printBasePairs(dna_seq):
     \n<- dna_seq: str
     \n-> str
     """
-    return printSeq(dna_seq,'f') + '\n   ' + '|'*len(dna_seq) + '\n' + printSeq(matchDNA(dna_seq),'r')
+    return printSeq(dna_seq,'f') + '\n   ' + '|'*len(dna_seq) + '\n' + printSeq(dnaCompliment(dna_seq),'r')
 
 
 def hammingDist(seq1, seq2):
