@@ -81,8 +81,12 @@ def nucFrequencyDict(dna_seq):
     \n<- dna_seq: str
     \n-> dict
     """
-    return dict(collections.Counter(dna_seq))
-
+    dna_dict = dict(collections.Counter(dna_seq))
+    dna_dict.setdefault('A', 0)
+    dna_dict.setdefault('T', 0)
+    dna_dict.setdefault('G', 0)
+    dna_dict.setdefault('C', 0)
+    return dna_dict
 
 def percentGC(dna_seq):
     """
@@ -169,7 +173,7 @@ def printBasePairs(dna_seq):
     \n<- dna_seq: str
     \n-> str
     """
-    return printSeq(dna_seq,'f') + '\n   ' + '|'*len(dna_seq) + '\n' + printSeq(dnaComplimentcompli(dna_seq),'r')
+    return printSeq(dna_seq,'f') + '\n   ' + '|'*len(dna_seq) + '\n' + printSeq(dnaCompliment(dna_seq),'r')
 
 
 def hammingDist(seq1, seq2):
@@ -245,7 +249,26 @@ def translate(rna_seq):
             i += 1
     return codonStr
 
+def dnaSummary(dna_seq, seq_name = ''):
+    """
+    Return summary details of a given DNA sequence.
+    \n Notes: seq_name [Optional] is a given name of a sequence for ease of use
+    \n Format:
+    \n\t Nucleotide Frequency
+    \n\t GC Content
+    \n\t Forward Strand
+    \n\t Compliment
+    \n\t Reverse Compliment
+    \n\t RNA Transcription
+    \n<- rna_seq: str, seq_name: str [Optional]
+    \n-> None
+    """
+    summary = ''
+    summary += f'==== Sequence: {seq_name} ====\n'
+    summary += f'Nucleotide Freq: {nucFrequencyDict(dna_seq)}\n'
+    summary += f'GC Content: {percentGCtoString(dna_seq)}\n'
 
+    return summary
 
 # ====== Function Comment Template ======
 
