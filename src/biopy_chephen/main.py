@@ -18,10 +18,7 @@ class main:
     dnaStr = cleanSeq(randDNASeq(10))
     dnaStr2 = cleanSeq(randDNASeq(100))
 
-    #print(dnaStr)
-    print(printBasePairs(dnaStr))
-    #print(translate(transcribe(reverseCompliment(dnaStr))))
-    #print(randPolyPeptide(5))
+    
 
 
 
