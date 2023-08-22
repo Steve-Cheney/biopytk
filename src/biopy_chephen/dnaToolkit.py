@@ -90,23 +90,12 @@ def nucFrequencyDict(dna_seq):
 
 def percentGC(dna_seq):
     """
-    Return GC percentage of a DNA sequence in decimal form
-    \nNotes: output[0] = G %, output[1] = C %
+    Return GC percentage of a DNA sequence in % form
     \n<- dna_seq: str
-    \n-> [float, float]
+    \n-> float
     """
     bases = len(dna_seq)
-    return [float(nucFrequencyDict(dna_seq)['G']/bases), float(nucFrequencyDict(dna_seq)['C']/bases)]
-
-
-def percentGCtoString(dna_seq):
-    """
-    Return string formatted GC percentage of a DNA sequence
-    \n<- dna_seq: str
-    \n-> str
-    """
-    gcPercent = percentGC(dna_seq)
-    return 'Bases: ' + str(len(dna_seq)) + '\nG %: '  + str(gcPercent[0]) + '\nC %: ' + str(gcPercent[1])
+    return float(nucFrequencyDict(dna_seq)['G']/bases * 100) + float(nucFrequencyDict(dna_seq)['C']/bases * 100)
 
 
 def transcribe(dna_seq):
@@ -248,7 +237,7 @@ def dnaSummary(dna_seq, seq_name = ''):
     summary = ''
     summary += f'==== Sequence: {seq_name} ====\n'
     summary += f'Nucleotide Freq: {nucFrequencyDict(dna_seq)}\n'
-    summary += f'GC Content: {percentGCtoString(dna_seq)}\n'
+    summary += f'GC Content: {percentGC(dna_seq)}\n'
     summary += f'Base Pairs: \n{printBasePairs(dna_seq)}\n'
     summary += f'Reverse Compliment:\n'
     summary += printSeq(reverseCompliment(dna_seq), 'f')
