@@ -243,8 +243,17 @@ def dnaSummary(dna_seq, seq_name = ''):
     summary += printSeq(reverseCompliment(dna_seq), 'f')
     summary += f'\nTranscribed:\n{printSeq(transcribe(dna_seq),"f")}'
 
-
     return summary
+
+
+def seqsFromFASTA(fasta_File):
+    """
+    Given a FASTA file, return a dict of sequence names and their respective sequence
+    \n Notes: Does not discriminate between DNA, RNA, or Nucleotide sequences
+    \n\tReturns empty {} if no properly formatted FASTA sequences
+    \n<- fasta_File: FASTA formatted file 
+    \n-> dict
+    """
 
 # ====== Function Comment Template ======
 

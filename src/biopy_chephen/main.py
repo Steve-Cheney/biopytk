@@ -15,11 +15,10 @@ import random
 class main:
    
     
-    dnaStr = cleanSeq(randDNASeq(10))
-    dnaStr2 = cleanSeq(randDNASeq(100))
-
+    dnaStr = 'ATCGTCA'
+    print(dnaSummary(dnaStr))
     
-
+    print(seqsFromFASTA('test.fasta'))
 
 
 main()
