@@ -125,17 +125,8 @@ def dnaCompliment(dna_seq):
     \n<- dna_seq: str
     \n-> str
     """
-    output = ''
-    for nuc in dna_seq:
-        if nuc == 'A':
-            output += 'T'
-        if nuc == 'T':
-            output += 'A'
-        if nuc == 'G':
-            output += 'C'
-        if nuc == 'C':
-            output += 'G'
-    return output
+    translationTable = str.maketrans('ATCG', 'TAGC')
+    return dna_seq.translate(translationTable)
 
 
 def reverseCompliment(dna_seq):
@@ -154,17 +145,8 @@ def rnaCompliment(rna_seq):
     \n<- rna_seq: str
     \n-> str
     """
-    output = ''
-    for nuc in rna_seq:
-        if nuc == 'A':
-            output += 'U'
-        if nuc == 'U':
-            output += 'A'
-        if nuc == 'G':
-            output += 'C'
-        if nuc == 'C':
-            output += 'G'
-    return output
+    translationTable = str.maketrans('AUCG', 'UAGC')
+    return rna_seq.translate(translationTable)
 
 
 def printBasePairs(dna_seq):
@@ -270,7 +252,7 @@ def dnaSummary(dna_seq, seq_name = ''):
     summary += f'Base Pairs: \n{printBasePairs(dna_seq)}\n'
     summary += f'Reverse Compliment:\n'
     summary += printSeq(reverseCompliment(dna_seq), 'f')
-    summary += f'\nTranscribed:\n{printSeq(transcribe(reverseCompliment(dna_seq)),"f")}'
+    summary += f'\nTranscribed:\n{printSeq(transcribe(dna_seq),"f")}'
 
 
     return summary
