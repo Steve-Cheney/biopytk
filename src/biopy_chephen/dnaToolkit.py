@@ -166,7 +166,7 @@ def hammingDist(seq1, seq2):
     
     h_dist = 0
     for i in range(len(tempseq1)):
-        if tempseq1[i] == tempseq2[i]:
+        if tempseq1[i] != tempseq2[i]:
             h_dist += 1
     return h_dist
 
@@ -246,14 +246,27 @@ def dnaSummary(dna_seq, seq_name = ''):
     return summary
 
 
-def seqsFromFASTA(fasta_File):
+def gcContentFromFASTA(fasta_File):
     """
-    Given a FASTA file, return a dict of sequence names and their respective sequence
-    \n Notes: Does not discriminate between DNA, RNA, or Nucleotide sequences
-    \n\tReturns empty {} if no properly formatted FASTA sequences
+    Given a FASTA file, return a dict of sequence names and their respective GC content
     \n<- fasta_File: FASTA formatted file 
     \n-> dict
     """
+    seqDict = seqsFromFASTA(fasta_File)
+    seqDictClean = {k:cleanSeq(v) for k,v in seqDict.items()}
+    gcDict = {k:percentGC(v) for k,v in seqDictClean.items()}
+    return gcDict
+
+
+def getMaxGCFromFASTA(fasta_File):
+    """
+    Given a FASTA file, return the sequence with the largest GC content
+    \n<- fasta_File: FASTA formatted file 
+    \n-> dict
+    """    
+    gcDict = gcContentFromFASTA(fasta_File)
+    maxKey = max(gcDict, key=gcDict.get)
+    return {maxKey:gcDict[maxKey]}
 
 # ====== Function Comment Template ======
 
