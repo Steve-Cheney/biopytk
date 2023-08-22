@@ -13,7 +13,7 @@ import random
 
 
 class main:
-   print('Test2')
+   print(seqsFromFASTA('test.fasta'))
 
 main()
 

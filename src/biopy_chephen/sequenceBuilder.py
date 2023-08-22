@@ -56,20 +56,15 @@ def seqsFromFASTA(fasta_File):
     """
     lines = readFile(fasta_File)
     fastaDict = {}
-    tempSeqName = ''
-    tempSeq = ''
+    seqLabel = ''
 
     for line in lines:
         if line[0] == '>':
-            fastaDict[tempSeqName] = tempSeq.rstrip()
-            tempSeq = ''
-            tempSeqName = line[1:].rstrip()
-            fastaDict[tempSeqName] = ''
+            seqLabel = line[1:].rstrip()
+            fastaDict[seqLabel] = ''
         else:
-            tempSeq += line.rstrip()
-    fastaDict[tempSeqName] = tempSeq.rstrip()
+            fastaDict[seqLabel] += line.rstrip()
     # Remove empty values
-    fastaDict.pop('')
     fastaDict = {k:v for k,v in fastaDict.items() if v != ''}
     return fastaDict
 
@@ -80,7 +75,7 @@ def readFile(file):
     \n<- file
     \n-> str[]
     """
-    with open(file, type) as f:
+    with open(file, 'r') as f:
             lines = f.readlines()
     return lines
 
