@@ -11,6 +11,7 @@
 
 import random
 from geneticConst import *
+from dnaToolkit import *
 
 def randDNASeq(n):
     """
@@ -43,6 +44,35 @@ def randPolyPeptide(n):
     assert(type(n) == int)
     return 'M' + ''.join([random.choice(list(innerCodons.values())) 
                         for i in range(n)])
+
+
+def seqsFromFASTA(fasta_File):
+    """
+    Given a FASTA file, return a dict of sequence names and their respective sequence
+    \n Notes: Does not discriminate between DNA, RNA, or Nucleotide sequences
+    \n\tReturns empty {} if no properly formatted FASTA sequences
+    \n<- fasta_File: FASTA formatted file 
+    \n-> dict
+    """
+    with open(fasta_File, 'r') as f:
+            lines = f.readlines()
+    fastaDict = {}
+    tempSeqName = ''
+    tempSeq = ''
+
+    for line in lines:
+        if line[0] == '>':
+            fastaDict[tempSeqName] = tempSeq.rstrip()
+            tempSeq = ''
+            tempSeqName = line[1:].rstrip()
+            fastaDict[tempSeqName] = ''
+        else:
+            tempSeq += line.rstrip()
+    fastaDict[tempSeqName] = tempSeq.rstrip()
+    # Remove empty values
+    fastaDict.pop('')
+    fastaDict = {k:v for k,v in fastaDict.items() if v != ''}
+    return fastaDict
 
 # ====== Function Comment Template ======
 
