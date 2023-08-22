@@ -54,8 +54,7 @@ def seqsFromFASTA(fasta_File):
     \n<- fasta_File: FASTA formatted file 
     \n-> dict
     """
-    with open(fasta_File, 'r') as f:
-            lines = f.readlines()
+    lines = readFile(fasta_File)
     fastaDict = {}
     tempSeqName = ''
     tempSeq = ''
@@ -73,6 +72,17 @@ def seqsFromFASTA(fasta_File):
     fastaDict.pop('')
     fastaDict = {k:v for k,v in fastaDict.items() if v != ''}
     return fastaDict
+
+
+def readFile(file):
+    """
+    Given a file, read and return the list of lines
+    \n<- file
+    \n-> str[]
+    """
+    with open(file, type) as f:
+            lines = f.readlines()
+    return lines
 
 # ====== Function Comment Template ======
 
