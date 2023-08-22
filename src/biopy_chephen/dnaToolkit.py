@@ -187,38 +187,13 @@ def seqCompare(seq1, seq2):
     return seq1 + '\n' + compStr + '\n' + seq2
 
 
-def translate(rna_seq):
+def translate(rna_seq, init_pos = 0):
     """
     Return the list of codons of a given RNA sequence
-    \nNotes: Returns None if no codon start found
     \n<- rna_seq: str
-    \n-> str
+    \n-> chr[]
     """
-    codonStr = None
-    translationStarted = False
-    i = 0
-    STOP_CODON = -1
-    START_CODON = 'M'
-
-    for j in range(len(rna_seq)):
-        if i >= len(rna_seq) - 2:
-            return codonStr
-        currStr = rna_seq[i] + rna_seq[i+1] + rna_seq[i+2]
-        
-        if translationStarted:
-            if codons[currStr] == STOP_CODON:
-                return codonStr
-            else:
-                codonStr += codons[currStr]
-        elif codons[currStr] == START_CODON:
-            translationStarted = True
-            codonStr = START_CODON
-
-        if translationStarted:
-            i += 3
-        else:
-            i += 1
-    return codonStr
+    return [codons[rna_seq[pos:pos + 3]] for pos in range(init_pos, len(rna_seq) - 2, 3)]
 
 def dnaSummary(dna_seq, seq_name = ''):
     """
