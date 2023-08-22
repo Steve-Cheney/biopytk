@@ -13,7 +13,7 @@ import random
 
 
 class main:
-   print('Test')
+   print('Test2')
 
 main()
 
