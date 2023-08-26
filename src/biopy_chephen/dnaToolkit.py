@@ -118,7 +118,17 @@ def dnaCompliment(dna_seq):
     return dna_seq.translate(translationTable)
 
 
-def reverseCompliment(dna_seq):
+def rnaCompliment(rna_seq):
+    """
+    Return the matched sequence of a given RNA sequence
+    \n<- rna_seq: str
+    \n-> str
+    """
+    translationTable = str.maketrans('AUCG', 'UAGC')
+    return rna_seq.translate(translationTable)
+
+
+def dna_reverseCompliment(dna_seq):
     """
     Return the reverse compliment of a given DNA sequence
     \nNotes: Returns 5' -> 3'
@@ -126,6 +136,16 @@ def reverseCompliment(dna_seq):
     \n-> str
     """
     return dnaCompliment(dna_seq)[::-1]
+
+
+def rna_reverseCompliment(rna_seq):
+    """
+    Return the reverse compliment of a given RNA sequence
+    \nNotes: Returns 5' -> 3'
+    \n<- rna_seq: str
+    \n-> str
+    """
+    return rnaCompliment(rna_seq)[::-1]
 
 
 def rnaCompliment(rna_seq):
@@ -189,11 +209,25 @@ def seqCompare(seq1, seq2):
 
 def translate(rna_seq, init_pos = 0):
     """
-    Return the list of codons of a given RNA sequence
-    \n<- rna_seq: str
+    Return the list of codons of a given RNA sequence and starting position in sequence
+    \n<- rna_seq: str, init_pos: int
     \n-> chr[]
     """
     return [codons[rna_seq[pos:pos + 3]] for pos in range(init_pos, len(rna_seq) - 2, 3)]
+
+
+def get_reading_frames(rna_seq):
+    """
+    Given an RNA seq, return a list of translated codon reading frames
+    \n<- rna_seq: str 
+    \n-> [str[]]
+    """
+    frames = []
+    for i in range(0,3):
+        frames.append(translate(rna_seq, i))
+    for i in range(0,3):
+        frames.append(translate(rna_reverseCompliment(rna_seq), i))
+    return frames
 
 def dnaSummary(dna_seq, seq_name = ''):
     """
@@ -215,7 +249,7 @@ def dnaSummary(dna_seq, seq_name = ''):
     summary += f'GC Content: {percentGC(dna_seq)}\n'
     summary += f'Base Pairs: \n{printBasePairs(dna_seq)}\n'
     summary += f'Reverse Compliment:\n'
-    summary += printSeq(reverseCompliment(dna_seq), 'f')
+    summary += printSeq(dna_reverseCompliment(dna_seq), 'f')
     summary += f'\nTranscribed:\n{printSeq(transcribe(dna_seq),"f")}'
 
     return summary
@@ -242,6 +276,7 @@ def getMaxGCFromFASTA(fasta_File):
     gcDict = gcContentFromFASTA(fasta_File)
     maxKey = max(gcDict, key=gcDict.get)
     return {maxKey:gcDict[maxKey]}
+
 
 # ====== Function Comment Template ======
 
