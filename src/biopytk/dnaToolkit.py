@@ -295,9 +295,11 @@ def getProteinsFromRF(amino_acid_seq):
         else:
             if each == "M":
                 curr_protein += each
-            if bool(curr_protein):
+            elif bool(curr_protein):
                 curr_protein += each
-
+    if bool(curr_protein):
+        proteins.append(curr_protein)
+        curr_protein = ""
     return proteins
 
 # ====== Function Comment Template ======
