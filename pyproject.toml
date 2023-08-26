@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "biopy_chephen"
+name = "biopytk"
 version = "0.0.1"
 authors = [
   { name="Stephen Cheney", email="scheney.cb@gmail.com" },
@@ -18,4 +18,4 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/Steve-Cheney/biopy"
+"Homepage" = "https://github.com/Steve-Cheney/biopytk"
