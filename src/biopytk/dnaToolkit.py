@@ -302,6 +302,29 @@ def getProteinsFromRF(amino_acid_seq):
         curr_protein = ""
     return proteins
 
+
+def getAllORFProteins(rna_seq, start_pos = 0, end_pos = 0, ordered = False):
+    """
+    Given an RNA sequence, starting position, and ending position, return all possible polypeptides within the ORFs
+    \n<- rna_seq: str, start_pos: int, end_pos: int, ordered: bool
+    \n-> str[]
+    """
+    if end_pos > start_pos:
+        frames = get_reading_frames(rna_seq[start_pos:end_pos])
+    else:
+        frames = get_reading_frames(rna_seq)
+    
+    output = []
+    for frame in frames:
+        proteins = getProteinsFromRF(frame)
+        for protein in proteins:
+            output.append(protein)
+    
+
+    if ordered:
+        return sorted(output, key = len, reverse = True)
+    return output
+
 # ====== Function Comment Template ======
 
     """
