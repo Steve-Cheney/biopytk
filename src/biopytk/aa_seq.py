@@ -1,7 +1,7 @@
 # FASTA Toolkit
 # Last updated: 8/30/23
 #
-# This package contains FASTA analysis tools. 
+# This module contains Amino Acid & Polypeptide analysis tools.
 #
 # Classes included in this file:
 #   - sequenceBuilder

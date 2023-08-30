@@ -1,7 +1,7 @@
 # Bio Seq Toolkit
 # Last updated: 8/30/23
 #
-# This class contains DNA/RNA sequencing tools. 
+# This module contains DNA/RNA sequencing tools. 
 #
 # Classes included in this file:
 #   - sequenceBuilder

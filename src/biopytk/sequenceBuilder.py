@@ -1,7 +1,7 @@
 # Sequence Builder
 # Last updated: 8/15/23
 #
-# This package contains DNA sequence building tools. 
+# This module contains DNA sequence building tools. 
 #
 # Classes included in this file:
 #   - sequenceBuilder
