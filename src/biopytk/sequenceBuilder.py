@@ -10,8 +10,8 @@
 # Stephen Cheney © 2023
 
 import random
-from geneticConst import *
-from dnaToolkit import *
+from structs import *
+from bio_seq import *
 
 def randDNASeq(n):
     """
