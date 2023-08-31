@@ -9,6 +9,7 @@
 *.fasta
 *.fa
 *.txt
+!requirements.txt
 
 # Packages #
 ############
