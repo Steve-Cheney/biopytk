@@ -18,13 +18,10 @@ classifiers = [
 dependencies = [
     'importlib_metadata; python_version < "3.8"',
 ]
-dynamic = ["version", "readme"]
-
-[tool.setuptools.dynamic]
-readme = {file = ["README.md"], content-type = "text/markdown"}
+dynamic = ["version"]
 
 [tool.setuptools_scm]
-write_to = "src/biopytk/_version.py"
+write_to = "biopytk/_version.py"
 
 [project.urls]
 "Homepage" = "https://github.com/Steve-Cheney/biopytk"
