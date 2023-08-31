@@ -2,7 +2,7 @@
 # BioPyTK
 
 Personal Toolkit for Bioinformatics and Computational Biology pipelines.
-Latest release: **v0.1.0**
+Latest release: **v0.1.2**
 
 ## In this README:
 
