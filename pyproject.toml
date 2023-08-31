@@ -4,7 +4,6 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "biopytk"
-dynamic = ["version"]
 authors = [
   { name="Stephen Cheney", email="scheney.cb@gmail.com" },
 ]
