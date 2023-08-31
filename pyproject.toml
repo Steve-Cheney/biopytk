@@ -21,7 +21,7 @@ dependencies = [
 dynamic = ["version"]
 
 [tool.setuptools_scm]
-write_to = "biopytk/_version.py"
+write_to = "src/biopytk/_version.py"
 
 [project.urls]
 "Homepage" = "https://github.com/Steve-Cheney/biopytk"
