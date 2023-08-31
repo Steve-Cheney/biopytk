@@ -1,8 +1,7 @@
 name: Publish to PyPI.org
 on:
-  push:
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+  release:
+    types: [published]
 jobs:
   pypi:
     runs-on: ubuntu-latest
