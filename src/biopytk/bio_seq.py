@@ -24,6 +24,8 @@ class bio_seq():
         self.is_valid = self.validateSeq()
         assert self.is_valid, f"Input {seq_type} sequence is invalid: {self.seq}"
 
+    def __str__(self):
+        return f'{self.label}:\n{self.seq}'
 
     def validateSeq(self):
         """
