@@ -14,6 +14,8 @@
 from structs import *
 from sequenceBuilder import *
 from bio_seq import *
+from aa_seq import *
+
 
 def percentGC_fasta(seq):
     """
@@ -46,3 +48,30 @@ def getMaxGCFromFASTA(fasta_File):
     gcDict = gcContentFromFASTA(fasta_File)
     maxKey = max(gcDict, key=gcDict.get)
     return {maxKey:gcDict[maxKey]}
+
+
+def parseFASTA(fasta_File, labels = [], seq_type = 'AA'):
+    """
+    Parse a FASTA file into bio_seq objects
+    \nNotes: seqs empty by default returns all sequences, otherwise returns list of bio_seq objects that match label in labels
+    \n\tseq_type specifies what sequence type the function should interpret the FASTA file as. Default to amino acid/protein sequence.
+    \n<- fasta_File: FASTA formatted file, labels: str[],  
+    \n-> bio_seq[]
+    """
+    seqDict = seqsFromFASTA(fasta_File)
+    if not bool(seqDict):
+        return [] # Empty dict, no seqs
+    
+    if not bool(labels):
+        if seq_type == 'AA':
+            seqs = [aa_seq(v,k) for k,v in seqDict.items()]
+        else:
+            seqs = [bio_seq(v,seq_type,k) for k,v in seqDict.items()]
+    else:
+        if seq_type == 'AA':
+            seqs = [aa_seq(v,k) for k,v in seqDict.items() if k in labels]
+        else:
+            seqs = [bio_seq(v,seq_type,k) for k,v in seqDict.items() if k in labels]
+    
+    return seqs
+    

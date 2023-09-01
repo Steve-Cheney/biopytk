@@ -17,4 +17,8 @@ class main:
    dna = bio_seq("ACGTTTA")
    dna2 = bio_seq("ACGGGTA")
    print(dna.seqSummary())
+   aa = aa_seq("FLIMSYDAD")
+   seqlist = parseFASTA('test.fasta',['Rosalind_5123','Rosalind_5043'],'DNA')
+   for each in seqlist:
+      print(each)
 main()
