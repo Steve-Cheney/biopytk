@@ -14,12 +14,19 @@ from structs import *
 from sequenceBuilder import *
 
 class aa_seq():
+    """
+    STOP Codons are represented by '_'
+    """
     def __init__(self, seq = "FLIMSY", label = 'No Label'):
         self.seq = seq.upper()
         self.seq_type = 'AA'
         self.label = label
         self.is_valid = self.validateSeq()
         assert self.is_valid, f"Input AA sequence is invalid: {self.seq}"
+
+
+    def __str__(self):
+        return f'{self.label}:\n{self.seq}'
 
 
     def validateSeq(self):
@@ -31,7 +38,7 @@ class aa_seq():
         return set(codons.values()).issuperset(self.seq)
 
 
-    def getProteinsFromRF(amino_acid_seq):
+    def getProteinsFromRF(self):
         """
         Given an amino acid sequence, return all possible proteins
         \n<- amino_acid_seq: chr[]
@@ -40,7 +47,7 @@ class aa_seq():
         curr_protein = ""
         proteins = []
 
-        for each in amino_acid_seq:
+        for each in self.seq:
             if each == "_":
                 if bool(curr_protein):
                     proteins.append(curr_protein)

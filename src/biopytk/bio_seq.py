@@ -14,6 +14,7 @@
 import collections
 from structs import *
 from sequenceBuilder import *
+from aa_seq import aa_seq
 from aa_seq import *
 
 class bio_seq():
@@ -22,10 +23,13 @@ class bio_seq():
         self.seq_type = seq_type
         self.label = label
         self.is_valid = self.validateSeq()
+        self.length = len(seq)
         assert self.is_valid, f"Input {seq_type} sequence is invalid: {self.seq}"
+
 
     def __str__(self):
         return f'{self.label}:\n{self.seq}'
+    
 
     def validateSeq(self):
         """
@@ -195,7 +199,7 @@ class bio_seq():
         \n<- bio_seq obj, init_pos: int
         \n-> chr[]
         """
-        return [codons[self.seq[pos:pos + 3]] for pos in range(init_pos, len(self.seq) - 2, 3)]
+        return aa_seq(''.join([codons[self.seq[pos:pos + 3]] for pos in range(init_pos, len(self.seq) - 2, 3)]))
 
 
     def seqSummary(self):
@@ -224,13 +228,15 @@ class bio_seq():
         return summary
     
 
-    def get_reading_frames(self, start_pos = 0, end_pos = 0):
+    def get_reading_frames(self, start_pos = 0, end_pos = None):
         """
         Given an RNA seq, return a list of translated codon reading frames
         \n<- bio_seq obj RNA
-        \n-> [str[]]
+        \n-> [aa_seq obj]
         """
         assert self.seq_type == 'RNA', f"Input seq type is {self.seq_type}, not RNA"
+        if end_pos == None:
+            end_pos = self.length
         frames = []
         temp_seq = bio_seq(self.seq[start_pos:end_pos], 'RNA', self.label+ f': Pos {start_pos} : {end_pos}')
         for i in range(0,3):
@@ -240,13 +246,17 @@ class bio_seq():
         return frames
 
 
-    def getAllORFProteins(self, start_pos = 0, end_pos = 0, ordered = False):
+    def getAllORFProteins(self, start_pos = 0, end_pos = None, ordered = False):
         """
         Given an RNA sequence, starting position, and ending position, return all possible polypeptides within the ORFs
+        \nNotes: ordered == True: sort AAs by length, descending, else do not sort
         \n<- bio_seq obj start_pos: int, end_pos: int, ordered: bool
         \n-> str[]
         """
         assert self.seq_type == 'RNA', f"Input seq type is {self.seq_type}, not RNA"
+        if end_pos == None:
+            end_pos = self.length
+
         if end_pos > start_pos:
             frames = self.get_reading_frames(start_pos, end_pos)
         else:
@@ -254,11 +264,10 @@ class bio_seq():
         
         output = []
         for frame in frames:
-            proteins = getProteinsFromRF(frame)
+            proteins = frame.getProteinsFromRF()
             for protein in proteins:
                 output.append(protein)
         
-
         if ordered:
             return sorted(output, key = len, reverse = True)
         return output
