@@ -52,7 +52,7 @@ def getMaxGCFromFASTA(fasta_File):
 
 def parseFASTA(fasta_File, labels = [], seq_type = 'AA'):
     """
-    Parse a FASTA file into bio_seq objects
+    Parse a FASTA file into bio_seq or aa_seq objects
     \nNotes: seqs empty by default returns all sequences, otherwise returns list of bio_seq objects that match label in labels
     \n\tseq_type specifies what sequence type the function should interpret the FASTA file as. Default to amino acid/protein sequence.
     \n<- fasta_File: FASTA formatted file, labels: str[],  

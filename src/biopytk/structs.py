@@ -10,8 +10,8 @@
 # https://www.stephendoescomp.bio
 # Stephen Cheney © 2023
 
-nucleotides = ['A', 'C', 'T', 'G']
-rnaNucleotides = ['A', 'C', 'U', 'G']
+nucleotides = ['A', 'C', 'T', 'G', '-']
+rnaNucleotides = ['A', 'C', 'U', 'G', '-']
 
 codons = {'UUU':'F','UUC':'F','UUA':'L','UUG':'L','CUU':'L','CUC':'L','CUA':'L','CUG':'L','AUU':'I',
           'AUC':'I','AUA':'I','AUG':'M','GUU':'V','GUC':'V','GUA':'V','GUG':'V','UCU':'S','UCC':'S',
