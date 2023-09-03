@@ -131,7 +131,6 @@ class bio_seq():
         return temp_seq.dnaCompliment()
 
 
-
     def rna_reverseCompliment(self):
         """
         Return the reverse compliment of a given RNA sequence
@@ -146,7 +145,7 @@ class bio_seq():
 
     def getBasePairs(self):
         """
-        Return the complimentary base pairs of a given DNA sequence
+        Return a string of the complimentary base pairs of a given DNA sequence
         \n<- bio_seq obj
         \n-> str
         """
