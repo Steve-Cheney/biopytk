@@ -46,29 +46,6 @@ def randPolyPeptide(n):
                         for i in range(n)])
 
 
-def seqsFromFASTA(fasta_File):
-    """
-    Given a FASTA file, return a dict of sequence names and their respective sequence
-    \n Notes: Does not discriminate between DNA, RNA, or Nucleotide sequences
-    \n\tReturns empty {} if no properly formatted FASTA sequences
-    \n<- fasta_File: FASTA formatted file 
-    \n-> dict
-    """
-    lines = readFile(fasta_File)
-    fastaDict = {}
-    seqLabel = ''
-
-    for line in lines:
-        if line[0] == '>':
-            seqLabel = line[1:].rstrip()
-            fastaDict[seqLabel] = ''
-        else:
-            fastaDict[seqLabel] += line.rstrip()
-    # Remove empty values
-    fastaDict = {k:v for k,v in fastaDict.items() if v != ''}
-    return fastaDict
-
-
 def readFile(file):
     """
     Given a file, read and return the list of lines
