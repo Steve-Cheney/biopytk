@@ -20,8 +20,11 @@ class main:
 
    print(dfFromFASTA('test.fasta', 'DNA'))
 
-   s1 = bio_seq('aatggctac')
+   s1 = bio_seq('aagctcc')
    s2 = bio_seq('ctac')
-   print(s1.globalAlign(s2))
+   output = s1.globalAlign(s2)
+   print(output[0].seqCompare(output[1]))
 
+   fastaSeqs = parseFASTA('test.fasta', seq_type='DNA')
+   print(fastaSeqs[0].seqCompare(fastaSeqs[1]))
 main()

@@ -187,8 +187,11 @@ class bio_seq():
         for i in range(seqLen):
             if self.seq[i] == seq2.seq[i]:
                 compStr += '|'
-            else:
+            elif self.seq[i] == '-' or seq2.seq[i] == '-':
                 compStr += ' '
+            else:
+                compStr += '.'
+                
         return self.seq + '\n' + compStr + '\n' + seq2.seq
 
 
@@ -363,6 +366,7 @@ class bio_seq():
         j = compSeq.length
         xSeq = []
         ySeq = []
+        
         temp = getAlignmentMatricies(aSeq, bSeq, AlignScore(gap, match, mismatch))
         scoreMatrix = temp[0]
         traceBackMatrix = temp[1]
@@ -382,7 +386,11 @@ class bio_seq():
                 i -= 1
             if traceBackMatrix[i][j] == 'done':
                 break
-        return ''.join(xSeq[::-1]), ''.join(ySeq[::-1])
+        aSeq = ''.join(xSeq[::-1])
+        bSeq = ''.join(ySeq[::-1])
+
+        return bio_seq(aSeq, self.seq_type, self.label), bio_seq(bSeq, compSeq.seq_type, compSeq.label)
+          
     
 
 # ====== Function Comment Template ======
