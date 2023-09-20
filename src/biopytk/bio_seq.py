@@ -275,7 +275,7 @@ class bio_seq():
         return output
 
 
-    def globalAlign(self, compSeq, gap=-2, match=1, mismatch=-1):
+    def globalAlign(self, compSeq, match=1, mismatch=0, gap=0, extend=0):
         """
         Perform a global alignment on self and given sequence (Needleman–Wunsch)
         \n<- bio_seq obj compSeq: bio_seq obj, gap: int, match: int, mismatch: int
@@ -324,10 +324,11 @@ class bio_seq():
             return matrix
         
         class AlignScore:
-            def __init__(self, gap, match, mismatch):
+            def __init__(self,match, mismatch, gap, extend):
                 self.gap = gap
                 self.match = match
                 self.mismatch = mismatch
+                self.extend = extend
             def misMatchChr(self, a, b):
                 if a != b:
                     return self.mismatch
@@ -359,37 +360,57 @@ class bio_seq():
                         traceBackMatrix[i][j] = 'diag'
                     
             return scoreMatrix, traceBackMatrix
-        
+              
         aSeq = self.seq
         bSeq = compSeq.seq
         i = self.length
         j = compSeq.length
         xSeq = []
         ySeq = []
-        
-        temp = getAlignmentMatricies(aSeq, bSeq, AlignScore(gap, match, mismatch))
+        finalScore = 0
+        temp = getAlignmentMatricies(aSeq, bSeq, AlignScore(match, mismatch, gap, extend))
         scoreMatrix = temp[0]
         traceBackMatrix = temp[1]
-        while(i > 0 or j > 0):
+        gapOpen = False
+        while(i > 0 or j > 0):            
             if traceBackMatrix[i][j] == 'diag':
                 xSeq.append(aSeq[i-1])
                 ySeq.append(bSeq[j-1])
+                if aSeq[i-1] == bSeq[j-1]:
+                    finalScore += match
+                    print('mat')
+                else: 
+                    finalScore += mismatch
+                    print('mis')
                 i -= 1
                 j -= 1
+                gapOpen = False
             elif traceBackMatrix[i][j] == 'left':
                 xSeq.append('-')
                 ySeq.append(bSeq[j-1])
                 j -= 1
+                if not gapOpen:
+                    finalScore += gap
+                    gapOpen = True
+                else:
+                    finalScore += extend
+                print('gap')
             elif traceBackMatrix[i][j] == 'up':
                 xSeq.append(aSeq[i-1])
                 ySeq.append('-')
                 i -= 1
+                if not gapOpen:
+                    finalScore += gap
+                    gapOpen = True
+                else:
+                    finalScore += extend
+                print('gap')
             if traceBackMatrix[i][j] == 'done':
                 break
         aSeq = ''.join(xSeq[::-1])
         bSeq = ''.join(ySeq[::-1])
 
-        return bio_seq(aSeq, self.seq_type, self.label), bio_seq(bSeq, compSeq.seq_type, compSeq.label)
+        return bio_seq(aSeq, self.seq_type, self.label), bio_seq(bSeq, compSeq.seq_type, compSeq.label), finalScore
           
     
 

@@ -19,12 +19,16 @@ class main:
    print(dna.transcribe().getAllORFProteins(ordered = True))
 
    print(dfFromFASTA('test.fasta', 'DNA'))
-
-   s1 = bio_seq('aagctcc')
-   s2 = bio_seq('ctac')
-   output = s1.globalAlign(s2)
+   
+   s1 = bio_seq('TAGATG')
+   s2 = bio_seq('CCTATAGG')
+   output = s1.globalAlign(s2, 2, -1, -3. -.5)
    print(output[0].seqCompare(output[1]))
-
-   fastaSeqs = parseFASTA('test.fasta', seq_type='DNA')
-   print(fastaSeqs[0].seqCompare(fastaSeqs[1]))
+   print(f'Score: {output[2]}')
+   '''
+   fastaSeqs = parseFASTA('test2.fasta', seq_type='DNA')
+   output = fastaSeqs[0].globalAlign(fastaSeqs[1])
+   print(output[0].seqCompare(output[1]))
+   print(f'Score: {output[2]}')
+   '''
 main()
