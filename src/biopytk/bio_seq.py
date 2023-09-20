@@ -272,6 +272,119 @@ class bio_seq():
         return output
 
 
+    def globalAlign(self, compSeq, gap=-2, match=1, mismatch=-1):
+        """
+        Perform a global alignment on self and given sequence
+        \n<- bio_seq obj compSeq: bio_seq obj, gap: int, match: int, mismatch: int
+        \n-> (str, str)
+        """
+
+        @staticmethod
+        def __getScoreMatrix(seq1, seq2, gap):
+            '''
+            Initialize scoring matrix
+            --------------------------
+            seq1 & seq2 should be strings representations of the sequences without labels
+            '''
+            matrix = []
+            for i in range(len(seq1)+1):
+                subMatrix = []
+                for j in range(len(seq2)+1):
+                    subMatrix.append(0)
+                matrix.append(subMatrix)
+            
+            for i in range(1, len(seq1)+1):
+                matrix[i][0] = i * gap   
+            for j in range(1, len(seq2)+1):
+                matrix[0][j] = j * gap
+            return matrix
+
+        @staticmethod
+        def __getTracebackMatrix(seq1, seq2):
+            '''
+            Initialize traceback matrix
+            --------------------------
+            seq1 & seq2 should be strings representations of the sequences without labels
+            '''
+            matrix = []
+            for i in range(len(seq1)+1):
+                subMatrix = []
+                for j in range(len(seq2)+1):
+                    subMatrix.append('0')
+                matrix.append(subMatrix)
+            
+            for i in range(1, len(seq1)+1):
+                matrix[i][0] = 'up'   
+            for j in range(1, len(seq2)+1):
+                matrix[0][j] = 'left'
+            matrix[0][0] = 'done'
+            return matrix
+        
+        class AlignScore:
+            def __init__(self, gap, match, mismatch):
+                self.gap = gap
+                self.match = match
+                self.mismatch = mismatch
+            def misMatchChr(self, a, b):
+                if a != b:
+                    return self.mismatch
+                return self.match
+        
+        @staticmethod
+        def getAlignmentMatricies(seq1, seq2, score):
+            '''
+            Propagate alignment matricies
+            --------------------------
+            - seq1 & seq2 should be strings representations of the sequences without labels
+            - score is an AlignScore object
+            '''
+            scoreMatrix = __getScoreMatrix(seq1, seq2, score.gap)
+            traceBackMatrix = __getTracebackMatrix(seq1, seq2)
+            
+            for i in range(1, len(seq1)+1):
+                for j in range(1, len(seq2)+1):
+                    # calculate the surrounding scores for the current point
+                    left = scoreMatrix[i][j-1] + score.gap
+                    up = scoreMatrix[i-1][j] + score.gap
+                    diag = scoreMatrix[i-1][j-1] + score.misMatchChr(seq1[i-1], seq2[j-1])
+                    scoreMatrix[i][j] = max(left, up, diag)
+                    if scoreMatrix[i][j] == left:
+                        traceBackMatrix[i][j] = 'left'
+                    elif scoreMatrix[i][j] == up:
+                        traceBackMatrix[i][j] = 'up'
+                    else:
+                        traceBackMatrix[i][j] = 'diag'
+                    
+            return scoreMatrix, traceBackMatrix
+        
+        aSeq = self.seq
+        bSeq = compSeq.seq
+        i = self.length
+        j = compSeq.length
+        xSeq = []
+        ySeq = []
+        temp = getAlignmentMatricies(aSeq, bSeq, AlignScore(gap, match, mismatch))
+        scoreMatrix = temp[0]
+        traceBackMatrix = temp[1]
+        while(i > 0 or j > 0):
+            if traceBackMatrix[i][j] == 'diag':
+                xSeq.append(aSeq[i-1])
+                ySeq.append(bSeq[j-1])
+                i -= 1
+                j -= 1
+            elif traceBackMatrix[i][j] == 'left':
+                xSeq.append('-')
+                ySeq.append(bSeq[j-1])
+                j -= 1
+            elif traceBackMatrix[i][j] == 'up':
+                xSeq.append(aSeq[i-1])
+                ySeq.append('-')
+                i -= 1
+            if traceBackMatrix[i][j] == 'done':
+                break
+        return ''.join(xSeq[::-1]), ''.join(ySeq[::-1])
+    
+
 # ====== Function Comment Template ======
 
     """
