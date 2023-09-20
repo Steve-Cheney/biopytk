@@ -377,15 +377,18 @@ class bio_seq():
                 xSeq.append(aSeq[i-1])
                 ySeq.append(bSeq[j-1])
                 if aSeq[i-1] == bSeq[j-1]:
+                    # Match
                     finalScore += match
                     print('mat')
                 else: 
+                    # Mismatch
                     finalScore += mismatch
                     print('mis')
                 i -= 1
                 j -= 1
                 gapOpen = False
             elif traceBackMatrix[i][j] == 'left':
+                # Gap
                 xSeq.append('-')
                 ySeq.append(bSeq[j-1])
                 j -= 1
@@ -394,8 +397,8 @@ class bio_seq():
                     gapOpen = True
                 else:
                     finalScore += extend
-                print('gap')
             elif traceBackMatrix[i][j] == 'up':
+                # Gap
                 xSeq.append(aSeq[i-1])
                 ySeq.append('-')
                 i -= 1
@@ -404,7 +407,6 @@ class bio_seq():
                     gapOpen = True
                 else:
                     finalScore += extend
-                print('gap')
             if traceBackMatrix[i][j] == 'done':
                 break
         aSeq = ''.join(xSeq[::-1])
