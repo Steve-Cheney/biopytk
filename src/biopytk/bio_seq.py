@@ -274,7 +274,7 @@ class bio_seq():
 
     def globalAlign(self, compSeq, gap=-2, match=1, mismatch=-1):
         """
-        Perform a global alignment on self and given sequence
+        Perform a global alignment on self and given sequence (Needleman–Wunsch)
         \n<- bio_seq obj compSeq: bio_seq obj, gap: int, match: int, mismatch: int
         \n-> (str, str)
         """
