@@ -18,5 +18,5 @@ class main:
    rna = bio_seq('AUGACGUUUA','RNA')
    print(dna.transcribe().getAllORFProteins(ordered = True))
 
-   print(dfFromFASTA('test.fasta', ['seq_type'], 'DNA').head())
+   print(dfFromFASTA('test.fasta', 'DNA').head())
 main()

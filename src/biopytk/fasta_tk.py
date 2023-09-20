@@ -101,12 +101,12 @@ def parseFASTA(fasta_File, labels = [], seq_type = 'AA'):
     return seqs
     
 
-def dfFromFASTA(fasta_File, cols = [], seq_type = 'AA'):
+def dfFromFASTA(fasta_File, seq_type = 'AA',  cols = []):
     """
     Parse a FASTA file into a dataframe
     \nNotes: cols empty by default returns dataframe with all bio_seq/aa_seq attributes, otherwise only returns df with spec'd cols
     \n\tseq_type specifies what sequence type the function should interpret the FASTA file as. Default to amino acid/protein sequence.
-    \n<- fasta_File: FASTA formatted file, labels: str[],  
+    \n<- fasta_File: FASTA formatted file, cols: str[],  
     \n-> bio_seq[]
     """
     seqList = parseFASTA(fasta_File, [], seq_type)
