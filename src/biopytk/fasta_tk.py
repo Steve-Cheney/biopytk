@@ -1,12 +1,9 @@
 # FASTA Toolkit
-# Last updated: 8/30/23
 #
 # This module contains FASTA file analysis tools. 
 #
 # Classes included in this file:
-#   - sequenceBuilder
-#   - structs
-#   - bio_seq
+#
 #
 # https://www.stephendoescomp.bio
 # Stephen Cheney © 2023
