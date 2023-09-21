@@ -1,6 +1,6 @@
 # Bio Seq Toolkit
 #
-# This module contains DNA/RNA sequencing tools. 
+# This module contains DNA/RNA sequencing tools.
 #
 # Classes included in this file:
 #   - bio_seq
@@ -27,7 +27,11 @@ class bio_seq():
 
     def __str__(self):
         return f'{self.label}:\n{self.seq}'
-    
+
+
+    def __eq__(self, other):
+        return self.seq == other.seq and self.seq_type == other.seq_type and self.length == other.length
+
 
     def validateSeq(self):
         """
@@ -54,7 +58,7 @@ class bio_seq():
             return '5\' ' + self.seq + ' 3\''
         if direc == 'r':
             return '3\' ' + self.seq + ' 5\''
-        
+
 
     def nucFrequencyDict(self):
         """
@@ -158,7 +162,7 @@ class bio_seq():
         """
         seq1Len = len(self.seq)
         seq2Len = len(seq2.seq)
-        
+
         tempseq1 = self.seq
         tempseq2 = seq2.seq
 
@@ -166,7 +170,7 @@ class bio_seq():
             tempseq1 = self.seq + ('X' * (seq2Len - seq1Len))
         if seq2Len < seq1Len:
             tempseq2 = seq2.seq + ('X' * (seq1Len - seq2Len))
-        
+
         h_dist = 0
         for i in range(len(tempseq1)):
             if tempseq1[i] != tempseq2[i]:
@@ -174,7 +178,7 @@ class bio_seq():
         return h_dist
 
 
-    def seqCompare(self, seq2):    
+    def seqCompare(self, seq2):
         """
         Returns a visual comparison of 2 input sequences
         \n<- seq1: bio_seq obj,\n\tseq2: bio_seq obj
@@ -189,7 +193,7 @@ class bio_seq():
                 compStr += ' '
             else:
                 compStr += '.'
-                
+
         return self.seq + '\n' + compStr + '\n' + seq2.seq
 
 
@@ -226,7 +230,7 @@ class bio_seq():
         summary += f'\nTranscribed:\n{self.transcribe().printSeq("f")}'
 
         return summary
-    
+
 
     def get_reading_frames(self, start_pos = 0, end_pos = None):
         """
@@ -261,13 +265,13 @@ class bio_seq():
             frames = self.get_reading_frames(start_pos, end_pos)
         else:
             frames = self.get_reading_frames(start_pos, end_pos)
-        
+
         output = []
         for frame in frames:
             proteins = frame.getProteinsFromRF()
             for protein in proteins:
                 output.append(protein)
-        
+
         if ordered:
             return sorted(output, key = len, reverse = True)
         return output
@@ -293,9 +297,9 @@ class bio_seq():
                 for j in range(len(seq2)+1):
                     subMatrix.append(0)
                 matrix.append(subMatrix)
-            
+
             for i in range(1, len(seq1)+1):
-                matrix[i][0] = i * gap   
+                matrix[i][0] = i * gap
             for j in range(1, len(seq2)+1):
                 matrix[0][j] = j * gap
             return matrix
@@ -313,14 +317,14 @@ class bio_seq():
                 for j in range(len(seq2)+1):
                     subMatrix.append('0')
                 matrix.append(subMatrix)
-            
+
             for i in range(1, len(seq1)+1):
-                matrix[i][0] = 'up'   
+                matrix[i][0] = 'up'
             for j in range(1, len(seq2)+1):
                 matrix[0][j] = 'left'
             matrix[0][0] = 'done'
             return matrix
-        
+
         class AlignScore:
             def __init__(self,match, mismatch, gap, extend):
                 self.gap = gap
@@ -331,7 +335,7 @@ class bio_seq():
                 if a != b:
                     return self.mismatch
                 return self.match
-        
+
         @staticmethod
         def getAlignmentMatricies(seq1, seq2, score):
             '''
@@ -342,7 +346,7 @@ class bio_seq():
             '''
             scoreMatrix = __getScoreMatrix(seq1, seq2, score.gap)
             traceBackMatrix = __getTracebackMatrix(seq1, seq2)
-            
+
             for i in range(1, len(seq1)+1):
                 for j in range(1, len(seq2)+1):
                     # calculate the surrounding scores for the current point
@@ -356,9 +360,9 @@ class bio_seq():
                         traceBackMatrix[i][j] = 'up'
                     else:
                         traceBackMatrix[i][j] = 'diag'
-                    
+
             return scoreMatrix, traceBackMatrix
-              
+
         aSeq = self.seq
         bSeq = compSeq.seq
         i = self.length
@@ -370,7 +374,7 @@ class bio_seq():
         scoreMatrix = temp[0]
         traceBackMatrix = temp[1]
         gapOpen = False
-        while(i > 0 or j > 0):            
+        while(i > 0 or j > 0):
             if traceBackMatrix[i][j] == 'diag':
                 xSeq.append(aSeq[i-1])
                 ySeq.append(bSeq[j-1])
@@ -378,7 +382,7 @@ class bio_seq():
                     # Match
                     finalScore += match
                     print('mat')
-                else: 
+                else:
                     # Mismatch
                     finalScore += mismatch
                     print('mis')
@@ -411,15 +415,15 @@ class bio_seq():
         bSeq = ''.join(ySeq[::-1])
 
         return bio_seq(aSeq, self.seq_type, self.label), bio_seq(bSeq, compSeq.seq_type, compSeq.label), finalScore
-          
-    
+
+
 
 # ====== Function Comment Template ======
 
     """
     Purpose of Function
     \nNotes: [notes]
-    \n\t[more notes]    
+    \n\t[more notes]
     \n<- input: type
     \n-> type
     """
