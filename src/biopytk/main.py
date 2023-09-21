@@ -1,5 +1,4 @@
 # Computational Biology Python Tools
-# Last updated: 8/15/23
 #
 #
 # Packages included in this file:

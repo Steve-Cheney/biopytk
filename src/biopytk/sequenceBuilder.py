@@ -1,10 +1,9 @@
 # Sequence Builder
-# Last updated: 8/15/23
 #
 # This module contains DNA sequence building tools. 
 #
 # Classes included in this file:
-#   - sequenceBuilder
+#
 #
 # https://www.stephendoescomp.bio
 # Stephen Cheney © 2023

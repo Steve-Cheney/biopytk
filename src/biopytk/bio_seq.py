@@ -1,12 +1,10 @@
 # Bio Seq Toolkit
-# Last updated: 8/30/23
 #
 # This module contains DNA/RNA sequencing tools. 
 #
 # Classes included in this file:
-#   - sequenceBuilder
-#   - structs
-#   - aa_seq
+#   - bio_seq
+#   - AlignScore
 #
 # https://www.stephendoescomp.bio
 # Stephen Cheney © 2023
