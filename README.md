@@ -26,7 +26,7 @@ This package contains the following modules:
 | `dnaCompliment()` | `rnaCompliment()` | `dna_reverseCompliment()`|
 | `rna_reverseCompliment()` | `getBasePairs()` | `hammingDist()`|
 | `seqCompare()` | `translate()` | `seqSummary()`|
-| `get_reading_frames()` | `getAllORFProteins()` | |
+| `get_reading_frames()` | `getAllORFProteins()` | `globalAlign()` |
 
 ⚙️ [aa_seq](https://github.com/Steve-Cheney/biopytk/blob/main/src/biopytk/aa_seq.py)
 - Amino Acid & Polypeptide analysis tools.
@@ -41,7 +41,7 @@ This package contains the following modules:
 ||||
 |--|--|--|
 | `percentGC_fasta()` | `gcContentFromFASTA()` | `getMaxGCFromFASTA()`|
-
+| `dictFromFASTA()` | `parseFASTA()` | `dfFromFASTA()`|
 
 ## Usage
 
