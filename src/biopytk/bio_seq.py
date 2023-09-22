@@ -377,11 +377,9 @@ class bio_seq():
                 if aSeq[i-1] == bSeq[j-1]:
                     # Match
                     finalScore += match
-                    print('mat')
                 else: 
                     # Mismatch
                     finalScore += mismatch
-                    print('mis')
                 i -= 1
                 j -= 1
                 gapOpen = False
