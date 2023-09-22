@@ -22,12 +22,13 @@ class main:
    s1 = bio_seq('TAGATG')
    s2 = bio_seq('CCTATAGG')
    output = s1.globalAlign(s2, 2, -1, -3. -.5)
+   print('\n\n')
    print(output[0].seqCompare(output[1]))
    print(f'Score: {output[2]}')
-   '''
+   
    fastaSeqs = parseFASTA('test2.fasta', seq_type='DNA')
    output = fastaSeqs[0].globalAlign(fastaSeqs[1])
    print(output[0].seqCompare(output[1]))
    print(f'Score: {output[2]}')
-   '''
+   
 main()
