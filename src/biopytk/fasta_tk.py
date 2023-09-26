@@ -112,4 +112,11 @@ def dfFromFASTA(fasta_File, seq_type = 'AA',  cols = []):
     else: out = df[cols]
     return out
     
-    
+def ancestryToFASTA(ancestry_file):
+    """
+    Parse a standard Ancestry DNA .txt file into FASTA format
+    \nNotes: Will parse through file and disregard until the "rsid	chromosome	position	allele1	allele2" line of text is found.
+    \n\tseq_type specifies what sequence type the function should interpret the FASTA file as. Default to amino acid/protein sequence.
+    \n<- (AncestryDNA.txt): default Ancestry DNA .txt file from download  
+    \n-> out.fasta
+    """    
