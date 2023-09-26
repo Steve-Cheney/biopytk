@@ -55,6 +55,13 @@ def readFile(file):
             lines = f.readlines()
     return lines
 
+def writeFile(input, outfile_name):
+    with open(outfile_name, 'w') as fp:
+        if type(input) == str:
+            fp.write("%s" % input)
+        elif type(input) == list:
+            for line in input:
+                fp.write("%s\n" % line)
 # ====== Function Comment Template ======
 
     """
