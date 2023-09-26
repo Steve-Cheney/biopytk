@@ -31,8 +31,6 @@ class main:
    print(output[0].seqCompare(output[1]))
    print(f'Score: {output[2]}')
    
-   ancestryToFASTA('AncestryDNA.txt')
-
-   print(dfFromFASTA('tempout2.fasta', 'DNA').head(1))
+   ancestryToFASTA('AncestryDNA.txt', 'test_fa.fasta', 2)
 
 main()

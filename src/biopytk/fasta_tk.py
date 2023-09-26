@@ -161,16 +161,13 @@ def ancestryToFASTA(ancestry_file, outfile_name = 'output_'+ datetime.now().strf
         allele2_out += ">allele_2_chr_" + chr + '\n'
         allele2_out += ''.join(seq) + '\n'
       
-    print('Writing to FASTA')
-    starttime = datetime.now()
+    
     if al == 0:
         writeFile([allele1_out, allele2_out], outfile_name)
     elif al == 1:
         writeFile(allele1_out, outfile_name)
     elif al == 2:    
         writeFile(allele2_out, outfile_name)
-    endtime = datetime.now()
-    mil = (endtime-starttime).total_seconds() * 1000
-    print(f'Completed in: {mil} ms')
     
     
+
