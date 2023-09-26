@@ -9,6 +9,7 @@
 # Stephen Cheney © 2023
 
 import random
+from datetime import datetime
 from structs import *
 from bio_seq import *
 
@@ -55,6 +56,18 @@ def readFile(file):
             lines = f.readlines()
     return lines
 
+def writeFile(input, outfile_name):
+    print('Writing to', outfile_name)
+    starttime = datetime.now()
+    with open(outfile_name, 'w') as fp:
+        if type(input) == str:
+            fp.write("%s" % input)
+        elif type(input) == list:
+            for line in input:
+                fp.write("%s\n" % line)
+    endtime = datetime.now()
+    mil = (endtime-starttime).total_seconds() * 1000
+    print(f'Completed in: {mil} ms')
 # ====== Function Comment Template ======
 
     """
