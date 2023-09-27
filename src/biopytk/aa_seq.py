@@ -15,7 +15,7 @@ from sequenceBuilder import *
 
 class aa_seq():
     """
-    STOP Codons are represented by '_'
+    STOP Codons are represented by '*'
     """
     def __init__(self, seq = "FLIMSY", label = 'No Label'):
         self.seq = seq.upper()
@@ -48,7 +48,7 @@ class aa_seq():
         proteins = []
 
         for each in self.seq:
-            if each == "_":
+            if each == "*":
                 if bool(curr_protein):
                     proteins.append(curr_protein)
                     curr_protein = ""
