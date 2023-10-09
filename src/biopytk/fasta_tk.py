@@ -9,7 +9,6 @@
 # Stephen Cheney © 2023
 
 import pandas as pd
-import pickle
 from collections import defaultdict
 from structs import *
 from sequenceBuilder import *

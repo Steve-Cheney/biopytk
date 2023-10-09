@@ -15,7 +15,7 @@ from sequenceBuilder import *
 
 class aa_seq():
     """
-    STOP Codons are represented by '_'
+    STOP Codons are represented by '*'
     """
     def __init__(self, seq = "FLIMSY", label = 'No Label'):
         self.seq = seq.upper()
@@ -27,6 +27,24 @@ class aa_seq():
 
     def __str__(self):
         return f'{self.label}:\n{self.seq}'
+
+    def __eq__(self, other):
+        """
+        return: 
+         0: seq&label != seq&label
+         1: seq&label == seq&label
+         2: seq == seq, label != label
+         3: seq != seq, label == label
+
+        """
+        if self.seq == other.seq and self.label == other.label:
+            return 1
+        elif self.seq == other.seq and self.label != other.label:
+            return 2
+        elif self.seq != other.seq and self.label == other.label:
+            return 3
+        else:
+            return 0
 
 
     def validateSeq(self):
@@ -48,7 +66,7 @@ class aa_seq():
         proteins = []
 
         for each in self.seq:
-            if each == "_":
+            if each == "*":
                 if bool(curr_protein):
                     proteins.append(curr_protein)
                     curr_protein = ""
